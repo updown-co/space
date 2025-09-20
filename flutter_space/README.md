@@ -28,7 +28,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  space: ^0.0.1
+  flutter_space: ^0.0.1
 ```
 
 Then run:
@@ -40,7 +40,7 @@ flutter pub get
 or
 
 ```bash
-flutter pub add space
+flutter pub add flutter_space
 ```
 
 
