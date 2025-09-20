@@ -1,4 +1,4 @@
-name: space
+name: flutter_space
 description: "A Flutter package to create flexible, intuitive, and customizable spacing in your layouts, inspired by [`package:gap`](https://pub.dev/packages/gap) but improved and more powerful.  "
 version: 0.0.1
 homepage: https://github.com/updown-co/space.git

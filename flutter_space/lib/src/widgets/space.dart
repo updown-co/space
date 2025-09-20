@@ -1,7 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:space/src/constants/spacing.dart';
-import 'package:space/src/rendering/space.dart';
+import 'package:flutter_space/src/constants/spacing.dart';
+import 'package:flutter_space/src/rendering/space.dart';
 
 /// A widget that creates space along the main axis of its parent layout.
 ///

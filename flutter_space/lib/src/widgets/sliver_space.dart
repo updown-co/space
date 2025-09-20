@@ -6,8 +6,8 @@
 
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:space/src/constants/spacing.dart';
-import 'package:space/src/rendering/sliver_space.dart';
+import 'package:flutter_space/src/constants/spacing.dart';
+import 'package:flutter_space/src/rendering/sliver_space.dart';
 
 /// A sliver widget that creates space in a scrollable area.
 ///
