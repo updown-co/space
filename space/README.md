@@ -28,7 +28,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  space: ^1.0.0
+  space: ^0.0.1
 ```
 
 Then run:
