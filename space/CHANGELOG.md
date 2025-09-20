@@ -1,4 +1,4 @@
-## [0.0.1] - 2025-09-20
+## [1.0.0] - 2025-09-20
 ### Added
 - Initial release of **Space** package 
 - `Space` widget for consistent spacing in layouts.
