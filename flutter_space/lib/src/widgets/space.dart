@@ -10,7 +10,7 @@ import 'package:flutter_space/src/rendering/space.dart';
 ///
 /// Examples:
 /// ```dart
-/// Space(20)          // 20 pixels
+/// Space(20)          // 20 pixels (int or double)
 /// Space(Spacing.l)   // Large predefined spacing
 /// Space(Spacing.m, crossAxisExtent: 10)  // Medium spacing with cross-axis
 /// ```
@@ -18,50 +18,40 @@ class Space extends StatelessWidget {
   /// Creates a space with either explicit numeric extent or enum-based spacing.
   ///
   /// The [extent] parameter can be either:
-  /// - A [double] for explicit pixel spacing (e.g., `Space(20)`)
-  /// - A [Spacing] enum for predefined spacing (e.g., `Space(Spacing.l)`)
+  /// - a [num] (int or double) for explicit pixel spacing (e.g., `Space(20)` or `Space(20.0)`)
+  /// - a [Spacing] enum for predefined spacing (e.g., `Space(Spacing.l)`)
   const Space(this.extent, {super.key, this.crossAxisExtent, this.color});
 
   /// Creates a space with predefined enum-based spacing.
-  ///
-  /// This is an alternative constructor that's more explicit about using enums.
   const Space.size(Spacing size, {super.key, this.crossAxisExtent, this.color})
     : extent = size;
 
-  /// Creates a tiny space using predefined spacing.
   const Space.tiny({super.key, this.crossAxisExtent, this.color})
     : extent = Spacing.tiny;
 
-  /// Creates an extra small space using predefined spacing.
   const Space.extraSmall({super.key, this.crossAxisExtent, this.color})
     : extent = Spacing.extraSmall;
 
-  /// Creates a small space using predefined spacing.
   const Space.small({super.key, this.crossAxisExtent, this.color})
     : extent = Spacing.small;
 
-  /// Creates a medium space using predefined spacing.
   const Space.medium({super.key, this.crossAxisExtent, this.color})
     : extent = Spacing.medium;
 
-  /// Creates a large space using predefined spacing.
   const Space.large({super.key, this.crossAxisExtent, this.color})
     : extent = Spacing.large;
 
-  /// Creates an extra large space using predefined spacing.
   const Space.extraLarge({super.key, this.crossAxisExtent, this.color})
     : extent = Spacing.extraLarge;
 
-  /// Creates a huge space using predefined spacing.
   const Space.huge({super.key, this.crossAxisExtent, this.color})
     : extent = Spacing.huge;
 
-  /// Creates a massive space using predefined spacing.
   const Space.massive({super.key, this.crossAxisExtent, this.color})
     : extent = Spacing.massive;
 
   /// The extent along the main axis.
-  /// Can be either a [double] (pixels) or [Spacing] enum.
+  /// Can be either a [num] (int/double) or [Spacing] enum.
   final Object extent;
 
   /// Spacing along the cross axis. Defaults to 0.
@@ -72,12 +62,12 @@ class Space extends StatelessWidget {
 
   /// Gets the effective main axis extent in pixels.
   double get _effectiveMainAxisExtent {
-    if (extent is double) {
-      return extent as double;
+    if (extent is num) {
+      return (extent as num).toDouble();
     } else if (extent is Spacing) {
       return (extent as Spacing).value;
     }
-    return 0;
+    return 0.0;
   }
 
   /// Whether this space has any actual extent.
@@ -87,21 +77,20 @@ class Space extends StatelessWidget {
   Spacing? get spacingType => extent is Spacing ? extent as Spacing : null;
 
   /// Returns the numeric value if using explicit pixels, null if using enum.
-  double? get numericExtent => extent is double ? extent as double : null;
+  double? get numericExtent =>
+      extent is num ? (extent as num).toDouble() : null;
 
   @override
   Widget build(BuildContext context) {
-    // Validate the extent parameter
+    // Validate the extent parameter: allow num (int/double) or Spacing.
     assert(
-      extent is double || extent is Spacing,
-      'extent must be either a double or Spacing enum. Got: ${extent.runtimeType}',
+      extent is num || extent is Spacing,
+      'extent must be either a num (int/double) or Spacing enum. Got: ${extent.runtimeType}',
     );
 
-    if (extent is double) {
-      assert(
-        (extent as double) >= 0,
-        'numeric extent must be non-negative. Got: $extent',
-      );
+    if (extent is num) {
+      final val = (extent as num).toDouble();
+      assert(val >= 0, 'numeric extent must be non-negative. Got: $extent');
     }
 
     final scrollable = Scrollable.maybeOf(context);
@@ -121,8 +110,8 @@ class Space extends StatelessWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
 
-    if (extent is double) {
-      properties.add(DoubleProperty('extent', extent as double));
+    if (extent is num) {
+      properties.add(DoubleProperty('extent', (extent as num).toDouble()));
     } else if (extent is Spacing) {
       properties.add(EnumProperty<Spacing>('extent', extent as Spacing));
     } else {
@@ -139,15 +128,12 @@ class Space extends StatelessWidget {
 }
 
 /// A flexible space widget that expands to fill available space along the main axis.
-///
-/// This is useful when you want the space to adapt to the available room in layouts
-/// like Flex, Column, or Row.
 class MaxSpace extends StatelessWidget {
   /// Creates a flexible space with a minimum main axis extent.
   ///
   /// The [extent] parameter can be either:
-  /// - A [double] for explicit pixel spacing
-  /// - A [Spacing] enum for predefined spacing
+  /// - a [num] for explicit pixel spacing
+  /// - a [Spacing] enum for predefined spacing
   const MaxSpace(
     this.extent, {
     super.key,
@@ -165,7 +151,7 @@ class MaxSpace extends StatelessWidget {
   }) : extent = 0.0;
 
   /// Minimum extent along the main axis.
-  /// Can be either a [double] (pixels) or [Spacing] enum.
+  /// Can be either a [num] (int/double) or [Spacing] enum.
   final Object extent;
 
   /// Spacing along the cross axis. Defaults to 0.
@@ -179,27 +165,25 @@ class MaxSpace extends StatelessWidget {
 
   /// Gets the effective main axis extent in pixels.
   double get _effectiveMainAxisExtent {
-    if (extent is double) {
-      return extent as double;
+    if (extent is num) {
+      return (extent as num).toDouble();
     } else if (extent is Spacing) {
       return (extent as Spacing).value;
     }
-    return 0;
+    return 0.0;
   }
 
   @override
   Widget build(BuildContext context) {
     // Validate the extent parameter
     assert(
-      extent is double || extent is Spacing,
-      'extent must be either a double or Spacing enum. Got: ${extent.runtimeType}',
+      extent is num || extent is Spacing,
+      'extent must be either a num (int/double) or Spacing enum. Got: ${extent.runtimeType}',
     );
 
-    if (extent is double) {
-      assert(
-        (extent as double) >= 0,
-        'numeric extent must be non-negative. Got: $extent',
-      );
+    if (extent is num) {
+      final val = (extent as num).toDouble();
+      assert(val >= 0, 'numeric extent must be non-negative. Got: $extent');
     }
 
     return Flexible(
@@ -216,8 +200,8 @@ class MaxSpace extends StatelessWidget {
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
 
-    if (extent is double) {
-      properties.add(DoubleProperty('extent', extent as double));
+    if (extent is num) {
+      properties.add(DoubleProperty('extent', (extent as num).toDouble()));
     } else if (extent is Spacing) {
       properties.add(EnumProperty<Spacing>('extent', extent as Spacing));
     } else {

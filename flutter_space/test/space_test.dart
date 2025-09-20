@@ -190,8 +190,8 @@ void main() {
   group('Space Tests', () {
     group('Constructor Tests', () {
       test('creates Space with numeric extent', () {
-        const space = Space(20.0);
-        expect(space.extent, equals(20.0));
+        const space = Space(20);
+        expect(space.extent, equals(20));
         expect(space.crossAxisExtent, isNull);
         expect(space.color, isNull);
         expect(space.numericExtent, equals(20.0));
@@ -429,7 +429,7 @@ void main() {
                         Text('Item 1'),
                         Space.medium(),
                         Text('Item 2'),
-                        Space(15.0),
+                        Space(15),
                         Text('Item 3'),
                       ],
                     ),
