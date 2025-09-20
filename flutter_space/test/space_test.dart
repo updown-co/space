@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_space/space.dart';
+import 'package:flutter_space/flutter_space.dart';
 
 void main() {
   group('SliverSpace Tests', () {
